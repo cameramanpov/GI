@@ -3,45 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie - Groupe Informaticien</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Groupe Informaticien</title>
+    <style>
+        #admin { color: red; }
+    </style>
 </head>
 <body>
-    <h1>Messagerie du Groupe Informaticien</h1>
+    <h1>Groupe Informaticien</h1>
 
-    <!-- Boutons de connexion et inscription -->
     <div id="authButtons">
         <button id="loginBtn">Se connecter</button>
         <button id="signupBtn">S'inscrire</button>
     </div>
 
-    <!-- Zone de messages -->
-    <ul id="messageList">
-        <!-- Les messages seront insérés ici -->
-    </ul>
-
-    <!-- Formulaire pour l'envoi des messages (visible seulement si connecté) -->
-    <form id="messageForm" style="display: none;">
-        <input type="text" id="author" placeholder="Ton nom" disabled />
-        <textarea id="message" placeholder="Ton message" required></textarea>
-        <button type="submit">Envoyer</button>
-    </form>
-
-    <!-- Formulaire de connexion -->
-    <div id="loginForm" style="display: none;">
-        <h2>Se connecter</h2>
-        <input type="text" id="loginUsername" placeholder="Nom d'utilisateur" required />
-        <input type="password" id="loginPassword" placeholder="Mot de passe" required />
+    <div id="loginForm" style="display:none;">
+        <h2>Connexion</h2>
+        <input type="text" id="loginUsername" placeholder="Nom d'utilisateur">
+        <input type="password" id="loginPassword" placeholder="Mot de passe">
         <button id="loginSubmit">Connexion</button>
     </div>
 
-    <!-- Formulaire d'inscription -->
-    <div id="signupForm" style="display: none;">
-        <h2>S'inscrire</h2>
-        <input type="text" id="signupUsername" placeholder="Nom d'utilisateur" required />
-        <input type="password" id="signupPassword" placeholder="Mot de passe" required />
-        <button id="signupSubmit">S'inscrire</button>
+    <div id="signupForm" style="display:none;">
+        <h2>Inscription</h2>
+        <input type="text" id="signupUsername" placeholder="Nom d'utilisateur">
+        <input type="password" id="signupPassword" placeholder="Mot de passe">
+        <button id="signupSubmit">Inscription</button>
     </div>
+
+    <div id="messageForm" style="display:none;">
+        <h2>Envoyer un message</h2>
+        <input type="text" id="author" disabled>
+        <textarea id="message" placeholder="Votre message"></textarea>
+        <button id="sendMessageBtn">Envoyer</button>
+    </div>
+
+    <ul id="messageList"></ul>
 
     <script src="app.js"></script>
 </body>

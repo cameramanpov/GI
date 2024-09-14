@@ -1,51 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 20px;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
 h1 {
-    color: #2c3e50;
-}
-
-#messageList {
-    list-style-type: none;
-    padding: 0;
-}
-
-#messageList li {
-    background-color: #ecf0f1;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-form {
-    margin-top: 20px;
-}
-
-input, textarea {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #bdc3c7;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-#loginForm, #signupForm {
-    margin-top: 20px;
+    color: #333;
 }
 
 #authButtons {
@@ -53,18 +14,44 @@ button:hover {
 }
 
 button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #3498db;
-    color: white;
+    margin-right: 10px;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
     cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #0056b3;
 }
+
+#loginForm, #signupForm, #messageForm {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="text"], input[type="password"], textarea {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
 #messageList {
     list-style-type: none;
     padding: 0;
@@ -75,15 +62,20 @@ button:hover {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ddd;
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
 }
 
 .message-author {
-    color: red; /* Couleur du pseudo de l'auteur */
     font-weight: bold;
+}
+
+.message-author.admin {
+    color: red; /* Couleur du pseudo de l'auteur admin */
 }
 
 .message-content {
     margin-top: 5px;
+    font-size: 16px;
 }

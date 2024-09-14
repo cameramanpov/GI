@@ -65,3 +65,25 @@ button {
 button:hover {
     background-color: #2980b9;
 }
+#messageList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#messageList li {
+    background: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-author {
+    color: red; /* Couleur du pseudo de l'auteur */
+    font-weight: bold;
+}
+
+.message-content {
+    margin-top: 5px;
+}

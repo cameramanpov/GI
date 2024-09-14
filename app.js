@@ -53,7 +53,18 @@ async function fetchMessages() {
 
         messages.forEach(message => {
             const li = document.createElement('li');
-            li.textContent = `${message.author} (${message.timestamp}): ${message.message}`;
+
+            const authorSpan = document.createElement('span');
+            authorSpan.className = 'message-author';
+            authorSpan.textContent = `${message.author} (${message.timestamp})`;
+
+            const contentSpan = document.createElement('span');
+            contentSpan.className = 'message-content';
+            contentSpan.textContent = message.message;
+
+            li.appendChild(authorSpan);
+            li.appendChild(contentSpan);
+
             messageList.appendChild(li);
         });
     } catch (error) {

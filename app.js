@@ -63,6 +63,12 @@ async function login(username, password) {
             document.getElementById('messageForm').style.display = 'block'; // Afficher le formulaire de messages
             document.getElementById('authButtons').style.display = 'none';  // Masquer les boutons de connexion
             document.getElementById('loginForm').style.display = 'none';    // Masquer le formulaire de connexion
+
+            // Si l'utilisateur est un admin, affiche son pseudo en rouge
+            if (currentUser.role === 'admin') {
+                document.getElementById('author').style.color = 'red';
+            }
+
             alert('Connexion réussie');
         } else {
             alert('Identifiants incorrects');
@@ -74,7 +80,7 @@ async function login(username, password) {
 
 // Fonction pour gérer l'inscription
 async function signup(username, password) {
-    const newUser = { username, password };
+    const newUser = { username, password, role: 'user' };  // Par défaut, tout le monde est 'user'
 
     try {
         const response = await fetch(apiUrlUsers, {

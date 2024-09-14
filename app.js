@@ -30,6 +30,18 @@ async function checkUsersCapacity() {
     }
 }
 
+// Vérifier si le pseudo est déjà utilisé
+async function isUsernameTaken(username) {
+    try {
+        const response = await fetch(usersUrl);
+        const users = await response.json();
+        return users.some(user => user.username === username);
+    } catch (error) {
+        console.error('Erreur lors de la vérification du pseudo :', error);
+        return false;
+    }
+}
+
 // Fonction pour récupérer les messages
 async function fetchMessages() {
     try {
@@ -110,6 +122,11 @@ async function login(username, password) {
 async function signup(username, password) {
     if (!await checkUsersCapacity()) {
         alert('La capacité des utilisateurs est pleine. Impossible de créer de nouveaux comptes.');
+        return;
+    }
+
+    if (await isUsernameTaken(username)) {
+        alert('Le pseudo est déjà utilisé. Choisissez-en un autre.');
         return;
     }
 

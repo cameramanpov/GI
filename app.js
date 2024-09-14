@@ -38,7 +38,7 @@ async function isUsernameTaken(username) {
         return users.some(user => user.username === username);
     } catch (error) {
         console.error('Erreur lors de la vérification du pseudo :', error);
-        return false;
+        return true; // En cas d'erreur, considérons le pseudo comme pris pour éviter les inscriptions
     }
 }
 

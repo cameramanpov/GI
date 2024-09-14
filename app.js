@@ -1,17 +1,41 @@
-// L'URL de ton MockAPI pour les messages et les utilisateurs
-const apiUrlMessages = 'https://66e5a21d5cc7f9b6273dec1d.mockapi.io/messages';
-const apiUrlUsers = 'https://66e5a21d5cc7f9b6273dec1d.mockapi.io/users';
+const maxMessages = 50; // Nombre maximum de messages autorisés
+const maxUsers = 50; // Nombre maximum d'utilisateurs autorisés
 
-// Variables pour stocker l'utilisateur connecté
+const messagesUrl = 'https://66e5a21d5cc7f9b6273dec1d.mockapi.io/messages';
+const usersUrl = 'https://66e5a21d5cc7f9b6273dec1d.mockapi.io/users';
+
 let currentUser = null;
+
+// Vérifier si les messages sont pleins
+async function checkMessagesCapacity() {
+    try {
+        const response = await fetch(messagesUrl);
+        const messages = await response.json();
+        return messages.length < maxMessages;
+    } catch (error) {
+        console.error('Erreur lors de la vérification des messages :', error);
+        return false;
+    }
+}
+
+// Vérifier si les utilisateurs sont pleins
+async function checkUsersCapacity() {
+    try {
+        const response = await fetch(usersUrl);
+        const users = await response.json();
+        return users.length < maxUsers;
+    } catch (error) {
+        console.error('Erreur lors de la vérification des utilisateurs :', error);
+        return false;
+    }
+}
 
 // Fonction pour récupérer les messages
 async function fetchMessages() {
     try {
-        const response = await fetch(apiUrlMessages);
+        const response = await fetch(messagesUrl);
         const messages = await response.json();
 
-        // Afficher les messages dans la liste
         const messageList = document.getElementById('messageList');
         messageList.innerHTML = ''; // Vider la liste avant d'ajouter les nouveaux messages
 
@@ -25,13 +49,18 @@ async function fetchMessages() {
     }
 }
 
-// Fonction pour envoyer un nouveau message
+// Fonction pour envoyer un message
 async function sendMessage(author, message) {
     const timestamp = new Date().toISOString();
     const data = { author, message, timestamp };
 
+    if (!await checkMessagesCapacity()) {
+        alert('La capacité des messages est pleine. Impossible d\'envoyer de nouveaux messages.');
+        return;
+    }
+
     try {
-        const response = await fetch(apiUrlMessages, {
+        const response = await fetch(messagesUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,8 +69,7 @@ async function sendMessage(author, message) {
         });
 
         if (response.ok) {
-            // Message envoyé avec succès, rafraîchir la liste des messages
-            fetchMessages();
+            fetchMessages(); // Recharger les messages
         } else {
             console.error('Erreur lors de l\'envoi du message');
         }
@@ -53,7 +81,7 @@ async function sendMessage(author, message) {
 // Fonction pour gérer la connexion
 async function login(username, password) {
     try {
-        const response = await fetch(apiUrlUsers);
+        const response = await fetch(usersUrl);
         const users = await response.json();
         const user = users.find(u => u.username === username && u.password === password);
 
@@ -80,10 +108,15 @@ async function login(username, password) {
 
 // Fonction pour gérer l'inscription
 async function signup(username, password) {
+    if (!await checkUsersCapacity()) {
+        alert('La capacité des utilisateurs est pleine. Impossible de créer de nouveaux comptes.');
+        return;
+    }
+
     const newUser = { username, password, role: 'user' };  // Par défaut, tout le monde est 'user'
 
     try {
-        const response = await fetch(apiUrlUsers, {
+        const response = await fetch(usersUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,15 +135,15 @@ async function signup(username, password) {
     }
 }
 
-// Gestion du formulaire d'envoi de message
-document.getElementById('messageForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Empêche la soumission normale du formulaire
-
-    const author = currentUser.username;
+// Gérer le formulaire d'envoi de message
+document.getElementById('sendMessageBtn').addEventListener('click', function () {
+    const author = currentUser ? currentUser.username : null;
     const message = document.getElementById('message').value;
 
-    if (message) {
+    if (author && message) {
         sendMessage(author, message); // Appel de la fonction pour envoyer le message
+    } else {
+        alert('Vous devez être connecté pour envoyer un message.');
     }
 
     // Vider le champ du message

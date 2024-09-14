@@ -56,6 +56,10 @@ async function fetchMessages() {
 
             const authorSpan = document.createElement('span');
             authorSpan.className = 'message-author';
+            // Ajouter la classe 'admin' si l'auteur est un admin
+            if (message.author === 'admin') {
+                authorSpan.classList.add('admin');
+            }
             authorSpan.textContent = `${message.author} (${message.timestamp})`;
 
             const contentSpan = document.createElement('span');

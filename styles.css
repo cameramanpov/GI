@@ -64,18 +64,5 @@ textarea {
     border: 1px solid #ddd;
     border-radius: 4px;
     display: flex;
-    flex-direction: column;
-}
+    flex
 
-.message-author {
-    font-weight: bold;
-}
-
-.message-author.admin {
-    color: red; /* Couleur du pseudo de l'auteur admin */
-}
-
-.message-content {
-    margin-top: 5px;
-    font-size: 16px;
-}

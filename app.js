@@ -1,5 +1,5 @@
-const maxMessages = 50; // Nombre maximum de messages autorisés
-const maxUsers = 50; // Nombre maximum d'utilisateurs autorisés
+const maxMessages = 100; // Nombre maximum de messages autorisés
+const maxUsers = 100;    // Nombre maximum d'utilisateurs autorisés
 
 const messagesUrl = 'https://66e5a21d5cc7f9b6273dec1d.mockapi.io/messages';
 const usersUrl = 'https://66e5a21d5cc7f9b6273dec1d.mockapi.io/users';
@@ -57,9 +57,9 @@ async function fetchMessages() {
             const authorSpan = document.createElement('span');
             authorSpan.className = 'message-author';
 
-            // Ajouter la classe 'admin' si l'auteur est 'admin'
-            if (message.author === 'admin') {
-                li.classList.add('admin-message');
+            // Ajouter la classe 'admin-message' si l'auteur est 'Admin' (peu importe la casse)
+            if (message.author.toLowerCase() === 'admin') {
+                authorSpan.classList.add('admin-message');
             }
 
             authorSpan.textContent = `${message.author} (${message.timestamp})`;

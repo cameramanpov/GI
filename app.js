@@ -11,7 +11,7 @@ async function checkMessagesCapacity() {
     try {
         const response = await fetch(messagesUrl);
         const messages = await response.json();
-        return messages.length < maxMessages;
+        return messages.length < maxMessages; // Retourne false si plein
     } catch (error) {
         console.error('Erreur lors de la vérification des messages :', error);
         return false;
@@ -56,10 +56,12 @@ async function fetchMessages() {
 
             const authorSpan = document.createElement('span');
             authorSpan.className = 'message-author';
-            // Ajouter la classe 'admin' si l'auteur est un admin
+
+            // Ajouter la classe 'admin' si l'auteur est 'admin'
             if (message.author === 'admin') {
-                authorSpan.classList.add('admin');
+                li.classList.add('admin-message');
             }
+
             authorSpan.textContent = `${message.author} (${message.timestamp})`;
 
             const contentSpan = document.createElement('span');
@@ -81,6 +83,7 @@ async function sendMessage(author, message) {
     const timestamp = new Date().toISOString();
     const data = { author, message, timestamp };
 
+    // Vérifier si la capacité des messages est pleine avant d'envoyer
     if (!await checkMessagesCapacity()) {
         alert('La capacité des messages est pleine. Impossible d\'envoyer de nouveaux messages.');
         return;
@@ -118,11 +121,6 @@ async function login(username, password) {
             document.getElementById('messageForm').style.display = 'block'; // Afficher le formulaire de messages
             document.getElementById('authButtons').style.display = 'none';  // Masquer les boutons de connexion
             document.getElementById('loginForm').style.display = 'none';    // Masquer le formulaire de connexion
-
-            // Si l'utilisateur est un admin, affiche son pseudo en rouge
-            if (currentUser.role === 'admin') {
-                document.getElementById('author').style.color = 'red';
-            }
 
             alert('Connexion réussie');
         } else {

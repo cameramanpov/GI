@@ -64,5 +64,19 @@ textarea {
     border: 1px solid #ddd;
     border-radius: 4px;
     display: flex;
-    flex
+}
+
+/* Style pour les messages envoyés par Admin */
+.admin-message {
+    color: red; /* Tous les messages envoyés par "Admin" s'affichent en rouge */
+}
+
+.message-author {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.message-content {
+    color: #333;
+}
 
